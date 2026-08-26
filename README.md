@@ -67,38 +67,84 @@ The **Agent Executor** loop gives the model access to tools (skills). If a skill
 
 ---
 
-## Quick Start
+## Prerequisites & System Dependencies
 
-### Prerequisites
+When someone clones the repository, running **`npm install`** and **`npm run tauri dev`** will automatically install and compile all Node.js and Rust crate dependencies.
 
-| Requirement | Version |
-|---|---|
-| [Rust](https://rustup.rs) | 1.80+ |
-| [Node.js](https://nodejs.org) | 18+ |
-| [Ollama](https://ollama.com) | Latest |
+However, the host machine must have the following developer tools installed:
 
-### 1. Pull a local model
+### 1. Core Tooling
+- **Node.js** (v18+) — [nodejs.org](https://nodejs.org)
+- **Rust & Cargo** (1.80+) — [rustup.rs](https://rustup.rs)
+- **Ollama** — [ollama.com](https://ollama.com)
+
+### 2. OS-Specific System Dependencies
+
+<details>
+<summary><b>🍎 macOS</b></summary>
 
 ```bash
-ollama pull llama3.2        # Recommended (CPU-friendly, 3B params)
-ollama pull llama3.1        # Optional (GPU-accelerated, 8B params)
+# Install Xcode Command Line Tools
+xcode-select --install
+
+# Install Ollama & Node.js (via Homebrew if preferred)
+brew install node ollama
+```
+</details>
+
+<details>
+<summary><b>🐧 Linux (Ubuntu / Debian)</b></summary>
+
+```bash
+# Install Tauri v2 system build libraries
+sudo apt-get update && sudo apt-get install -y \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libssl-dev \
+  libgtk-3-dev \
+  libwebkit2gtk-4.1-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+```
+</details>
+
+<details>
+<summary><b>🪟 Windows</b></summary>
+
+1. Install **Microsoft C++ Build Tools** (via Visual Studio Installer with "Desktop development with C++").
+2. Install **WebView2 Runtime** (pre-installed on Windows 10/11).
+3. Install **Node.js** and **Rust** via `rustup-init.exe`.
+</details>
+
+---
+
+## Quick Start (3 Steps)
+
+### 1. Start Ollama and pull your preferred model
+```bash
+# Start Ollama service (if not running in background)
+ollama serve
+
+# Pull default models
+ollama pull llama3.2
+ollama pull nomic-embed-text
 ```
 
-### 2. Clone and install
-
+### 2. Clone repository & install dependencies
 ```bash
 git clone https://github.com/MayankGit-hu/PerSona.git
 cd PerSona
 npm install
 ```
 
-### 3. Run in development mode
+> **Note:** `npm install` downloads all frontend packages. Cargo will automatically download and compile all Rust crates on the first run.
 
+### 3. Launch PerSona
 ```bash
 npm run tauri dev
 ```
-
-The desktop app opens automatically. Ollama must be running (`ollama serve`) before launching.
 
 ---
 
