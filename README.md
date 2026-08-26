@@ -29,9 +29,15 @@ Conversational search with direct citations, document previews, and streaming re
 
 <br/><br/>
 
-### 📚 Knowledge Base & Collections
+### 📚 Knowledge Base
 Manage document indexing, categories, collections, and vector search.
 <img src="docs/screenshots/knowledge-base.png" alt="Knowledge Base View" width="850" />
+
+<br/><br/>
+
+### 📁 Isolated Collections
+Group and isolate documents into specific vector workspaces.
+<img src="docs/screenshots/collections.png" alt="Collections View" width="850" />
 
 <br/><br/>
 
@@ -46,6 +52,7 @@ Specialized AI personas with customized instructions and assigned skill sets.
 <img src="docs/screenshots/agents.png" alt="Custom Agents View" width="850" />
 
 </div>
+
 
 
 ## How It Works
