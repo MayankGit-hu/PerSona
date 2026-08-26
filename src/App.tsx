@@ -559,6 +559,7 @@ export function App() {
               onSelectTab={(tab) => setActiveTab(tab)}
               onSelectModel={setSelectedModel}
               onStartResizing={() => setIsResizing(true)}
+              onNewChat={chatThreadsState.handleCreateThread}
             />
           )}
 
