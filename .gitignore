@@ -1,0 +1,65 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node / Web Dependencies & Builds
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Rust & Tauri Builds
+target/
+src-tauri/target/
+src-tauri/gen/
+**/*.rs.bk
+
+# Local Storage, Databases & User Ingestion Folders
+*.db
+*.sqlite
+*.sqlite3
+*.lancedb
+*.lance
+PersonaBrain/
+sync_watch/
+uploads/
+test_docs/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+
+# Test Dumps & Scratch Scripts
+*_test.html
+test_*.cjs
+test_*.js
+test_*.rs
+fix*.cjs
+extracted.txt
+stripped_*.tsx
+
+# OS / Editor Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

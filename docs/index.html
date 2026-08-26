@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PerSona — Your Private, Offline AI Knowledge Assistant</title>
+  <meta name="description" content="A local-first AI knowledge assistant that turns your documents into a searchable, conversational knowledge base — 100% offline via Ollama, LanceDB, and Tauri v2.">
+  <meta name="keywords" content="PerSona, Local AI, Offline RAG, Ollama, LanceDB, Tauri, Privacy, Document Assistant, AI Knowledge Base">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="PerSona — Your Private AI Knowledge Assistant">
+  <meta property="og:description" content="Ask questions about your documents offline. No cloud, no telemetry, no subscriptions.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Navigation Header -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand" id="brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="brand-name">PerSona</span>
+        <span class="brand-badge">v0.1.0</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#simulator" class="nav-link">Interactive Demo</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#quickstart" class="nav-link">Quick Start</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/MayankGit-hu/PerSona" target="_blank" rel="noopener" class="btn btn-secondary nav-btn" id="github-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="#quickstart" class="btn btn-primary nav-btn" id="download-btn">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-tag">
+          <span class="pulse-dot"></span>
+          <span>100% Local • Zero Cloud • Air-Gapped Privacy</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Ask questions about your files.<br>
+          <span class="gradient-text">Offline. Private. Instant.</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          PerSona transforms your private documents, PDFs, codebase, and notes into an intelligent, conversational knowledge base. Powered completely on your device by <strong>Ollama</strong>, <strong>LanceDB</strong>, and <strong>Tauri v2</strong>.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#quickstart" class="btn btn-primary btn-lg" id="hero-get-started">
+            <span>Download & Run Locally</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#simulator" class="btn btn-secondary btn-lg" id="hero-try-demo">
+            <span>Explore Interactive Demo</span>
+          </a>
+        </div>
+
+        <!-- Terminal Quick Command Preview -->
+        <div class="hero-terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-title">quickstart.sh</div>
+            <button class="copy-btn" data-copy="ollama pull llama3.2 && git clone https://github.com/MayankGit-hu/PerSona.git && cd PerSona && npm run tauri dev" title="Copy command">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="terminal-body">
+            <code><span class="term-prompt">$</span> ollama pull llama3.2</code>
+            <code><span class="term-prompt">$</span> git clone https://github.com/MayankGit-hu/PerSona.git &amp;&amp; cd PerSona</code>
+            <code><span class="term-prompt">$</span> npm install &amp;&amp; npm run tauri dev</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator Showcase -->
+    <section class="simulator-section" id="simulator">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-pill">Interactive Live Demo</div>
+          <h2 class="section-title">Experience the Local Intelligence</h2>
+          <p class="section-desc">Click between the demo modes below to see how PerSona coordinates local RAG retrieval, document parsing, and dynamic tool synthesis.</p>
+        </div>
+
+        <div class="simulator-card">
+          <div class="sim-tabs">
+            <button class="sim-tab active" data-tab="rag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Conversational RAG</span>
+            </button>
+            <button class="sim-tab" data-tab="ingest">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>Multi-Format Ingestion</span>
+            </button>
+            <button class="sim-tab" data-tab="skills">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span>Auto-Synthesized Skills</span>
+            </button>
+          </div>
+
+          <!-- Tab 1: RAG Chat Demo -->
+          <div class="sim-content active" id="tab-rag">
+            <div class="sim-chat-view">
+              <div class="sim-chat-sidebar">
+                <div class="sim-sidebar-title">Sample Prompts</div>
+                <button class="sim-prompt-btn active" data-query="security">
+                  <span>How does our API authenticate requests?</span>
+                </button>
+                <button class="sim-prompt-btn" data-query="performance">
+                  <span>Summarize our Q3 cluster scaling benchmarks</span>
+                </button>
+                <button class="sim-prompt-btn" data-query="architecture">
+                  <span>List all database tables in the schema</span>
+                </button>
+              </div>
+
+              <div class="sim-chat-main">
+                <div class="sim-messages" id="sim-messages-container">
+                  <!-- Messages rendered by app.js -->
+                </div>
+                <div class="sim-chat-input-bar">
+                  <input type="text" id="sim-input-box" placeholder="Ask a question about your documents..." readonly>
+                  <button class="sim-send-btn" id="sim-send-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Ingestion Demo -->
+          <div class="sim-content" id="tab-ingest">
+            <div class="sim-ingest-view">
+              <div class="sim-dropzone">
+                <div class="drop-icon">📂</div>
+                <h3>Drop files or connect a live watch folder</h3>
+                <p>Supports PDF, DOCX, XLSX, Markdown, JSON, OpenAPI specifications, and Web URLs</p>
+                <div class="format-badges">
+                  <span class="badge">.pdf (OCR/Text)</span>
+                  <span class="badge">.docx / .xlsx</span>
+                  <span class="badge">.json / .yaml</span>
+                  <span class="badge">.md / .txt</span>
+                  <span class="badge">Live Folder Sync</span>
+                  <span class="badge">Web Scraper</span>
+                </div>
+              </div>
+              <div class="sim-ingest-list">
+                <div class="ingest-item">
+                  <div class="item-icon">📄</div>
+                  <div class="item-details">
+                    <div class="item-name">Q3_Infrastructure_Report.pdf</div>
+                    <div class="item-bar"><div class="item-progress" style="width: 100%;"></div></div>
+                  </div>
+                  <div class="item-status success">Indexed • 42 Chunks</div>
+                </div>
+                <div class="ingest-item">
+                  <div class="item-icon">🔌</div>
+                  <div class="item-details">
+                    <div class="item-name">api-gateway-v2.json</div>
+                    <div class="item-bar"><div class="item-progress" style="width: 100%;"></div></div>
+                  </div>
+                  <div class="item-status success">Indexed • 18 Endpoints</div>
+                </div>
+                <div class="ingest-item">
+                  <div class="item-icon">🌐</div>
+                  <div class="item-details">
+                    <div class="item-name">https://docs.local.corp/network-policy</div>
+                    <div class="item-bar"><div class="item-progress" style="width: 100%;"></div></div>
+                  </div>
+                  <div class="item-status success">Scraped &amp; Vectorized</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Skills Demo -->
+          <div class="sim-content" id="tab-skills">
+            <div class="sim-skills-view">
+              <div class="skill-info-card">
+                <h3>Autonomous Tool Synthesis Loop</h3>
+                <p>When you ask PerSona to perform dynamic calculations, queries, or automations, the agent writes a JavaScript skill script on the fly, registers it into the local Skill Registry, and executes it securely.</p>
+              </div>
+              <div class="skill-code-card">
+                <div class="code-header">
+                  <span class="code-title">skills/calculate_risk_matrix/handler.js</span>
+                  <span class="badge badge-synth">Auto-Synthesized</span>
+                </div>
+                <pre><code><span class="kw">async function</span> <span class="fn">execute</span>(args) {
+  <span class="kw">const</span> { severity, likelihood } = args;
+  <span class="kw">const</span> score = severity * likelihood;
+  <span class="kw">return</span> {
+    riskLevel: score > <span class="num">15</span> ? <span class="str">"CRITICAL"</span> : score > <span class="num">8</span> ? <span class="str">"HIGH"</span> : <span class="str">"MODERATE"</span>,
+    calculatedScore: score,
+    mitigationPriority: score > <span class="num">15</span> ? <span class="str">"P0"</span> : <span class="str">"P1"</span>
+  };
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Grid -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-pill">Why PerSona</div>
+          <h2 class="section-title">Engineered for Complete Data Sovereignty</h2>
+          <p class="section-desc">Zero telemetry, zero external API keys required, zero cloud subscriptions. Everything runs locally on your silicon.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3 class="feature-title">100% Offline &amp; Air-Gapped</h3>
+            <p class="feature-desc">All models run via local Ollama instances (Llama 3.2, DeepSeek, Mistral, Qwen). Your documents, embeddings, and chat history never leave your machine.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </div>
+            <h3 class="feature-title">Embedded LanceDB Vector Engine</h3>
+            <p class="feature-desc">Sub-millisecond cosine and semantic vector similarity search powered by Rust bindings directly against embedded disk storage. No external vector service required.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+            <h3 class="feature-title">Live Folder Watcher &amp; Sync</h3>
+            <p class="feature-desc">Point PerSona to any folder on your computer. Whenever files are added or modified, PerSona detects changes and updates your knowledge base in the background.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-yellow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            </div>
+            <h3 class="feature-title">Local LAN Host Server</h3>
+            <p class="feature-desc">Toggle the built-in Axum REST server to securely share your knowledge base with other devices, mobile phones, or laptops on your home or office network.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-indigo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8h4a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-4"></path><circle cx="8" cy="12" r="2"></circle></svg>
+            </div>
+            <h3 class="feature-title">Self-Synthesizing Skill Registry</h3>
+            <p class="feature-desc">PerSona's agent loop can write, save, and execute custom JavaScript tools to solve specialized calculation and transformation tasks automatically.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon feature-icon-pink">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <h3 class="feature-title">Tauri v2 Desktop Architecture</h3>
+            <p class="feature-desc">Minimal memory footprint, instant startup, global hotkey summoning (<kbd>⌥ Option + Space</kbd>), and native macOS/Windows/Linux platform integration.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section" id="architecture">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-pill">Architecture</div>
+          <h2 class="section-title">How Data Flows Through PerSona</h2>
+          <p class="section-desc">A unified pipeline from local document ingestion to multi-agent retrieval.</p>
+        </div>
+
+        <div class="arch-diagram-wrapper">
+          <div class="arch-flow">
+            <div class="arch-node">
+              <div class="node-icon">📁</div>
+              <div class="node-title">Your Documents</div>
+              <div class="node-sub">PDF, DOCX, Code, Web</div>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node">
+              <div class="node-icon">⚙️</div>
+              <div class="node-title">Rust Parsers</div>
+              <div class="node-sub">Text Chunking &amp; Hashing</div>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node highlight">
+              <div class="node-icon">🧠</div>
+              <div class="node-title">LanceDB Store</div>
+              <div class="node-sub">Dense Embeddings Vector</div>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-node highlight">
+              <div class="node-icon">🤖</div>
+              <div class="node-title">Agent + Ollama</div>
+              <div class="node-sub">RAG + Skill Synthesis</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quickstart / Installation Guide -->
+    <section class="quickstart-section" id="quickstart">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-pill">Quick Start</div>
+          <h2 class="section-title">Get Running in 3 Easy Steps</h2>
+          <p class="section-desc">Run PerSona completely on your own machine in minutes.</p>
+        </div>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-badge">1</div>
+            <div class="step-content">
+              <h3>Install Ollama &amp; Pull Model</h3>
+              <p>Download <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> and pull your preferred local model:</p>
+              <div class="code-box">
+                <code>ollama pull llama3.2</code>
+                <button class="copy-btn" data-copy="ollama pull llama3.2" title="Copy">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">2</div>
+            <div class="step-content">
+              <h3>Clone the Repository</h3>
+              <p>Clone the project and install the dependencies:</p>
+              <div class="code-box">
+                <code>git clone https://github.com/MayankGit-hu/PerSona.git &amp;&amp; cd PerSona &amp;&amp; npm install</code>
+                <button class="copy-btn" data-copy="git clone https://github.com/MayankGit-hu/PerSona.git && cd PerSona && npm install" title="Copy">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-badge">3</div>
+            <div class="step-content">
+              <h3>Launch PerSona</h3>
+              <p>Start the desktop app in development mode or build the production release:</p>
+              <div class="code-box">
+                <code>npm run tauri dev</code>
+                <button class="copy-btn" data-copy="npm run tauri dev" title="Copy">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="copy-text">Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <section class="cta-banner-section">
+      <div class="container">
+        <div class="cta-banner">
+          <div class="cta-content">
+            <h2>Ready to take back your data privacy?</h2>
+            <p>Star the project on GitHub, contribute, or run it on your own hardware today.</p>
+          </div>
+          <div class="cta-btn-wrapper">
+            <a href="https://github.com/MayankGit-hu/PerSona" target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="footer-github-cta">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>View Source on GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">PerSona</span>
+        <span class="footer-copy">© 2026 • Released under the MIT License</span>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#simulator">Demo</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="https://github.com/MayankGit-hu/PerSona" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
