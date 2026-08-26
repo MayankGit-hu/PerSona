@@ -25,31 +25,31 @@ You drop in your documents. PerSona reads them, understands them, and lets you h
 
 ### 💬 Chat & Offline RAG
 Conversational search with direct citations, document previews, and streaming reasoning.
-<img src="docs/screenshots/chat-rag.png" alt="Chat & RAG Interface" width="850" />
+<img src="docs/screenshots/ui-chat-rag.png" alt="Chat & RAG Interface" width="850" />
 
 <br/><br/>
 
 ### 📚 Knowledge Base
 Manage document indexing, categories, collections, and vector search.
-<img src="docs/screenshots/knowledge-base.png" alt="Knowledge Base View" width="850" />
+<img src="docs/screenshots/ui-knowledge-base.png" alt="Knowledge Base View" width="850" />
 
 <br/><br/>
 
 ### 📁 Isolated Collections
 Group and isolate documents into specific vector workspaces.
-<img src="docs/screenshots/collections.png" alt="Collections View" width="850" />
+<img src="docs/screenshots/ui-collections.png" alt="Collections View" width="850" />
 
 <br/><br/>
 
 ### ⚡ Skill Studio (MCP Tool Registry)
 Dynamic tool synthesis and secure MCP script execution.
-<img src="docs/screenshots/skills.png" alt="Skills Studio" width="850" />
+<img src="docs/screenshots/ui-skills.png" alt="Skills Studio" width="850" />
 
 <br/><br/>
 
 ### 👥 Custom Agents
 Specialized AI personas with customized instructions and assigned skill sets.
-<img src="docs/screenshots/agents.png" alt="Custom Agents View" width="850" />
+<img src="docs/screenshots/ui-agents.png" alt="Custom Agents View" width="850" />
 
 </div>
 
