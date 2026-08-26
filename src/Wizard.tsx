@@ -76,7 +76,7 @@ export function Wizard({ onComplete }: WizardProps) {
       setStep("ingest_document");
     } catch (e) {
       console.error("Error checking/pulling models:", e);
-      setStep("ollama_error"); // If we can't list models, Ollama might have crashed
+      setStep("ollama_error");
     }
   };
 
@@ -91,7 +91,6 @@ export function Wizard({ onComplete }: WizardProps) {
       setTimeout(() => onComplete(), 1000);
     } catch (err) {
       console.error("Ingestion failed:", err);
-      // Even if it fails, we move on or show error, but let's just move on for onboarding
       setStep("done");
       setTimeout(() => onComplete(), 1000);
     } finally {
@@ -105,157 +104,104 @@ export function Wizard({ onComplete }: WizardProps) {
   };
 
   return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'var(--bg-obsidian)',
-      zIndex: 9999,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'var(--text-main)',
-      fontFamily: 'var(--font-sans)'
-    }}>
-      <div style={{
-        backgroundColor: 'var(--bg-card)',
-        padding: '40px',
-        borderRadius: '16px',
-        boxShadow: 'var(--shadow-premium)',
-        maxWidth: '500px',
-        width: '100%',
-        textAlign: 'center',
-        border: '1px solid var(--border-light)'
-      }}>
-        <h1 style={{ 
-          marginBottom: '20px', 
-          background: 'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
-        }}>
-          Welcome to PerSona
-        </h1>
-        
+    <div className="wizard-overlay">
+      <div className="wizard-card">
+
+        {/* Checking Ollama */}
         {step === "checking_ollama" && (
-          <div>
-            <div className="spinner" style={{ margin: '0 auto 15px auto', width: '30px', height: '30px', borderTopColor: 'var(--accent-violet)' }}></div>
-            <p>Connecting to local Ollama daemon...</p>
-          </div>
+          <>
+            <div className="wizard-icon">🔌</div>
+            <h2 className="wizard-title">Connecting to Ollama</h2>
+            <p className="wizard-body">Looking for a local Ollama daemon...</p>
+            <div className="spinner" />
+          </>
         )}
 
+        {/* Ollama Error */}
         {step === "ollama_error" && (
-          <div>
-            <div style={{ color: '#ef4444', marginBottom: '15px' }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ margin: '0 auto' }}>
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-              </svg>
-            </div>
-            <h3 style={{ marginBottom: '10px' }}>Ollama Not Found</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.9rem' }}>
-              PerSona runs 100% locally and requires the Ollama daemon to be running on your machine.
-              Please install Ollama from ollama.com, start it, and then try again.
+          <>
+            <div className="wizard-icon" style={{ background: 'rgba(244,63,94,0.2)', boxShadow: '0 8px 24px rgba(244,63,94,0.3)' }}>⚠️</div>
+            <h2 className="wizard-title">Ollama Not Found</h2>
+            <p className="wizard-body">
+              PerSona runs 100% locally and needs the Ollama daemon running on your machine.
+              Install it from <a href="https://ollama.com" target="_blank" rel="noreferrer" style={{ color: 'var(--violet-hi)' }}>ollama.com</a>, start it, and click below.
             </p>
-            <button 
-              onClick={checkOllama}
-              style={{
-                background: 'linear-gradient(135deg, var(--accent-violet) 0%, #7c3aed 100%)',
-                color: 'white', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer', fontWeight: 600
-              }}
-            >
+            <button className="btn-primary" onClick={checkOllama} style={{ width: '100%', justifyContent: 'center' }}>
               Check Again
             </button>
-          </div>
+          </>
         )}
 
+        {/* Checking Models */}
         {step === "checking_models" && (
-          <div>
-            <div className="spinner" style={{ margin: '0 auto 15px auto', width: '30px', height: '30px', borderTopColor: 'var(--accent-violet)' }}></div>
-            <p>Verifying required AI models...</p>
-          </div>
+          <>
+            <div className="wizard-icon">🔍</div>
+            <h2 className="wizard-title">Verifying Models</h2>
+            <p className="wizard-body">Checking for required AI models...</p>
+            <div className="spinner" />
+          </>
         )}
 
+        {/* Pulling Models */}
         {step === "pulling_models" && (
-          <div>
-            <h3 style={{ marginBottom: '10px' }}>Downloading Required Models</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.9rem' }}>
-              Downloading <strong>{currentModel}</strong>... This may take a while depending on your internet connection.
+          <>
+            <div className="wizard-icon">⬇️</div>
+            <h2 className="wizard-title">Downloading Models</h2>
+            <p className="wizard-body">
+              Downloading <strong style={{ color: 'var(--violet-hi)' }}>{currentModel}</strong>...
+              This may take a moment depending on your connection.
             </p>
-            
-            <div style={{ width: '100%', height: '8px', backgroundColor: 'var(--bg-input)', borderRadius: '4px', overflow: 'hidden', marginBottom: '10px' }}>
-              <div style={{ 
-                height: '100%', 
-                width: `${pullProgress}%`, 
-                backgroundColor: 'var(--accent-violet)',
-                transition: 'width 0.3s ease'
-              }}></div>
+            <div className="progress-bar-track">
+              <div className="progress-bar-fill" style={{ width: `${pullProgress}%` }} />
             </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{pullStatus} {pullProgress > 0 && `(${Math.round(pullProgress)}%)`}</p>
-          </div>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-3)', marginTop: '6px' }}>
+              {pullStatus}{pullProgress > 0 ? ` — ${Math.round(pullProgress)}%` : ''}
+            </p>
+          </>
         )}
 
+        {/* Ingest Document */}
         {step === "ingest_document" && (
-          <div>
-            <div style={{ color: 'var(--accent-violet)', marginBottom: '15px' }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ margin: '0 auto' }}>
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="12" y1="18" x2="12" y2="12"></line>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
-              </svg>
-            </div>
-            <h3 style={{ marginBottom: '10px' }}>Add Your First Document</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.9rem' }}>
-              PerSona's Knowledge Base allows you to chat with your own documents. Ingest your first PDF, DOCX, TXT, or Markdown file to get started!
+          <>
+            <div className="wizard-icon">📄</div>
+            <h2 className="wizard-title">Add Your First Document</h2>
+            <p className="wizard-body">
+              PerSona's Knowledge Base lets you chat with your own PDFs, docs, and notes. Ingest your first file to get started!
             </p>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-              <button 
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <button
+                className="btn-primary"
                 onClick={handleIngestFile}
                 disabled={isIngesting}
-                style={{
-                  background: 'linear-gradient(135deg, var(--accent-violet) 0%, #7c3aed 100%)',
-                  color: 'white', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: isIngesting ? 'not-allowed' : 'pointer', fontWeight: 600, width: '100%', maxWidth: '250px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                }}
+                style={{ width: '100%', justifyContent: 'center' }}
               >
                 {isIngesting ? (
                   <>
-                    <div className="spinner" style={{ width: '16px', height: '16px', borderTopColor: 'white', borderWidth: '2px' }}></div>
+                    <div className="spinner" style={{ width: '14px', height: '14px', borderWidth: '2px', borderTopColor: 'white' }} />
                     Ingesting...
                   </>
-                ) : (
-                  "Browse Files"
-                )}
+                ) : '📂 Browse Files'}
               </button>
-              
-              <button 
+              <button
+                className="btn-secondary"
                 onClick={handleSkipIngest}
                 disabled={isIngesting}
-                style={{
-                  background: 'transparent',
-                  color: 'var(--text-muted)', border: '1px solid var(--border-light)', padding: '10px 24px', borderRadius: '8px', cursor: isIngesting ? 'not-allowed' : 'pointer', fontWeight: 500, width: '100%', maxWidth: '250px'
-                }}
+                style={{ width: '100%', justifyContent: 'center' }}
               >
                 Skip for now
               </button>
             </div>
-          </div>
+          </>
         )}
 
+        {/* Done */}
         {step === "done" && (
-          <div>
-            <div style={{ color: '#10b981', marginBottom: '15px' }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ margin: '0 auto' }}>
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h3>You're All Set!</h3>
-            <p style={{ color: 'var(--text-muted)', marginTop: '10px', fontSize: '0.9rem' }}>
-              Launching PerSona...
-            </p>
-          </div>
+          <>
+            <div className="wizard-icon" style={{ background: 'rgba(16,185,129,0.2)', boxShadow: '0 8px 24px rgba(16,185,129,0.3)' }}>✓</div>
+            <h2 className="wizard-title">You're All Set!</h2>
+            <p className="wizard-body">Launching PerSona...</p>
+            <div className="spinner" />
+          </>
         )}
       </div>
     </div>

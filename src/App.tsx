@@ -492,12 +492,12 @@ export function App() {
       )}
 
       {toast && (
-        <div className={`toast toast-${toast.type}`}>
+        <div className={`toast ${toast.type}`}>
           <span>{toast.message}</span>
         </div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", overflow: "hidden" }}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100vh", width: "100vw", overflow: "hidden", background: "var(--bg-base)" }}>
         {/* Top Window Titlebar */}
         <div className="top-titlebar" data-tauri-drag-region onMouseDown={handleHeaderMouseDown}>
           <div style={{ width: "80px", height: "100%" }} data-tauri-drag-region />
@@ -525,7 +525,7 @@ export function App() {
           </div>
         </div>
 
-        <div className="app-container" style={{ flex: 1, display: "flex", overflow: "hidden", height: "auto", width: "100%" }}>
+        <div className="app-container">
           <CommandPalette
             isOpen={cmdPaletteOpen}
             onClose={() => setCmdPaletteOpen(false)}
@@ -563,7 +563,7 @@ export function App() {
             />
           )}
 
-          <main className="main-chat" style={{ padding: 0 }}>
+          <main className="main-chat">
             {activeTab === "knowledge" && (
               <KnowledgeView
                 getApiClient={getApiClient}
