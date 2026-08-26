@@ -126,11 +126,10 @@ export const SkillsView: React.FC<SkillsViewProps> = ({
 
       <div className="page-section" style={{ background: "transparent", border: "none", padding: "0" }}>
         <button
-          className="btn-secondary"
+          className={`btn-dashed-cta ${showAddSkill ? 'cancel' : ''}`}
           onClick={onToggleAddSkill}
-          style={{ width: "100%", padding: "16px", borderStyle: "dashed" }}
         >
-          {showAddSkill ? "Cancel" : "+ Create Custom Skill"}
+          {showAddSkill ? '✕ Cancel' : '+ Create Custom Skill'}
         </button>
 
         {showAddSkill && (

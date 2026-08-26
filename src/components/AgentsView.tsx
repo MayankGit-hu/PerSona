@@ -135,11 +135,10 @@ export const AgentsView: React.FC<AgentsViewProps> = ({
 
       <div className="page-section" style={{ background: "transparent", border: "none", padding: "0" }}>
         <button
-          className="btn-secondary"
+          className={`btn-dashed-cta ${showAddAgent ? 'cancel' : ''}`}
           onClick={onToggleAddAgent}
-          style={{ width: "100%", padding: "16px", borderStyle: "dashed" }}
         >
-          {showAddAgent ? "Cancel" : "+ Create Custom Agent"}
+          {showAddAgent ? '✕ Cancel' : '+ Create Custom Agent'}
         </button>
 
         {showAddAgent && (

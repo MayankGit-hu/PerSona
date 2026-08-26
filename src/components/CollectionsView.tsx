@@ -94,11 +94,10 @@ export const CollectionsView: React.FC<CollectionsViewProps> = ({
 
       <div className="page-section" style={{ background: "transparent", border: "none", padding: "0" }}>
         <button
-          className="btn-secondary"
+          className={`btn-dashed-cta ${showAddCollection ? 'cancel' : ''}`}
           onClick={onToggleAddCollection}
-          style={{ width: "100%", padding: "16px", borderStyle: "dashed" }}
         >
-          {showAddCollection ? "Cancel" : "+ Create Collection"}
+          {showAddCollection ? '✕ Cancel' : '+ Create Collection'}
         </button>
 
         {showAddCollection && (
