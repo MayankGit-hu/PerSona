@@ -19,6 +19,35 @@ You drop in your documents. PerSona reads them, understands them, and lets you h
 
 ---
 
+## Screenshots & Features
+
+<div align="center">
+
+### 💬 Chat & Offline RAG
+Conversational search with direct citations, document previews, and streaming reasoning.
+<img src="docs/screenshots/chat-rag.png" alt="Chat & RAG Interface" width="850" />
+
+<br/><br/>
+
+### 📚 Knowledge Base & Collections
+Manage document indexing, categories, collections, and vector search.
+<img src="docs/screenshots/knowledge-base.png" alt="Knowledge Base View" width="850" />
+
+<br/><br/>
+
+### ⚡ Skill Studio (MCP Tool Registry)
+Dynamic tool synthesis and secure MCP script execution.
+<img src="docs/screenshots/skills.png" alt="Skills Studio" width="850" />
+
+<br/><br/>
+
+### 👥 Custom Agents
+Specialized AI personas with customized instructions and assigned skill sets.
+<img src="docs/screenshots/agents.png" alt="Custom Agents View" width="850" />
+
+</div>
+
+
 ## How It Works
 
 ```
